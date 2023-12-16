@@ -1,32 +1,21 @@
 package com.example.finalproject
 
-import android.content.ContentValues.TAG
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.finalproject.model.DataAdapter
+import com.example.finalproject.data.MyPlaylistDataProvider
 import com.example.finalproject.model.MusicData
 import com.example.finalproject.network.MusicApi
-import com.example.finalproject.ui.theme.materials.FinalProjectTheme
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : ComponentActivity() {
     lateinit var recyclerView: RecyclerView
-    lateinit var adapter: DataAdapter
+    lateinit var adapter: MyPlaylistAdapter
     companion object {
         val globalMediaPlayer = MediaPlayer()
     }
@@ -42,10 +31,10 @@ class MainActivity : ComponentActivity() {
                 call: Call<MusicData?>,
                 response: Response<MusicData?>
             ) {
-                val dataList = response.body()?.data!!
-//                val textView = findViewById<TextView>(R.id.textView)
-//                textView.text = dataList.toString()
-                adapter = DataAdapter(this@MainActivity, dataList)
+//                val dataList = response.body()?.data!!
+//                adapter = DataAdapter(this@MainActivity, dataList)
+                val dataList = MyPlaylistDataProvider.getTracksData()
+                adapter = MyPlaylistAdapter(this@MainActivity, dataList)
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
