@@ -12,7 +12,7 @@ import com.example.finalproject.model.Track
 class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
     private var currentPlayingPosition: Int? = null
-
+    val playingTrack = context.intent.getIntExtra("playingTrack",-1)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.each_item, parent,false)
@@ -31,12 +31,21 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
         holder.artist.text = current.artist
         holder.image.setImageResource(current.imageId)
 
+        if(currentPlayingPosition != playingTrack && playingTrack != -1)
+            currentPlayingPosition = playingTrack
         holder.musiccard.setOnClickListener {
             handleMusicClick(position)
         }
-        var intent: Intent
+
         holder.musiccard.setOnLongClickListener {
-            intent = Intent(context, MainActivity2::class.java)
+            val intent = Intent(context, MainActivity3::class.java)
+            intent.putExtra("music_id", current.id)
+            intent.putExtra("audio_path", current.audio)
+            intent.putExtra("is_playing", globalMediaPlayer.isPlaying)
+            intent.putExtra("current_position", globalMediaPlayer.currentPosition)
+            if (playingTrack != -1)
+                intent.putExtra("playing_track", playingTrack)
+            else intent.putExtra("playing_track", currentPlayingPosition)
             context.startActivity(intent)
             true
         }
@@ -44,6 +53,8 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
     }
 
     private fun handleMusicClick(position: Int) {
+//        if(currentPlayingPosition != playingTrack && playingTrack != -1)
+//            currentPlayingPosition = playingTrack
         if (position == currentPlayingPosition) {
             if (globalMediaPlayer.isPlaying) {
                 globalMediaPlayer.pause()
