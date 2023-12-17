@@ -13,7 +13,7 @@
         android:id="@+id/sv"
         android:layout_width="374dp"
         android:layout_height="40dp"
-        android:background="#080A63"
+        android:background="#FFFFFF"
         android:queryHint="Type the name of music"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
