@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -69,6 +71,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
