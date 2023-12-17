@@ -38,6 +38,7 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
         holder.musiccard.setOnClickListener {
             handleMusicClick(position)
         }
+
     }
 
     private fun handleMusicClick(position: Int) {
