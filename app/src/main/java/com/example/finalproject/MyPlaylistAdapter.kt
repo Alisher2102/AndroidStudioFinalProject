@@ -1,6 +1,7 @@
 package com.example.finalproject
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,12 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
 
         holder.musiccard.setOnClickListener {
             handleMusicClick(position)
+        }
+        var intent: Intent
+        holder.musiccard.setOnLongClickListener {
+            intent = Intent(context, MainActivity2::class.java)
+            context.startActivity(intent)
+            true
         }
 
     }

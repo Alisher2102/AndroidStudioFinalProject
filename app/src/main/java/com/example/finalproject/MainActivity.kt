@@ -1,8 +1,11 @@
 package com.example.finalproject
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.SeekBar
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +22,7 @@ class MainActivity : ComponentActivity() {
     companion object {
         val globalMediaPlayer = MediaPlayer()
     }
-
+    lateinit var seekbar: SeekBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_of_music)
@@ -36,6 +39,7 @@ class MainActivity : ComponentActivity() {
                 val dataList = MyPlaylistDataProvider.getTracksData()
                 adapter = MyPlaylistAdapter(this@MainActivity, dataList)
                 recyclerView.adapter = adapter
+                seekbar = findViewById(R.id.musicSeekBar)
                 recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
                 Log.d("TAG: onResponse", "onResponse: " + response.body())
@@ -45,5 +49,8 @@ class MainActivity : ComponentActivity() {
                 Log.d("TAG: onFailure", "onFailure: " + t.message)
             }
         })
+    }
+    fun startActivity(view: View){
+        intent = Intent(this, MainActivity2::class.java)
     }
 }
