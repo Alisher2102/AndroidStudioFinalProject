@@ -46,7 +46,6 @@ class DataAdapter(val context: Activity, val dataList: List<Data>):
         holder.title.text = current.title
         holder.artist.text = current.artist.name
         Picasso.get().load(current.album.cover).into(holder.image)
-
         holder.musiccard.setOnClickListener {
             handleMusicClick(position)
         }

@@ -85,7 +85,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="80dp"
         app:layout_constraintLeft_toLeftOf="@id/musicSeekBar"
         app:layout_constraintTop_toTopOf="@id/play"
 
@@ -99,7 +99,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="80dp"
         app:layout_constraintRight_toRightOf="@id/musicSeekBar"
         app:layout_constraintTop_toTopOf="@id/play"
         tools:src="@drawable/next_button" />
