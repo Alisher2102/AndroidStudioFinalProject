@@ -1,8 +1,10 @@
 package com.example.finalproject
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.ComponentActivity
@@ -41,12 +43,6 @@ class MainActivity2 : ComponentActivity() {
                         response: Response<MusicData?>
                     ) {
                         val dataList = response.body()?.data!!
-
-                        //                val textView = findViewById<TextView>(R.id.textView)
-                        //                textView.text = dataList.toString()
-
-                        //                val textView = findViewById<TextView>(R.id.textView)
-                        //                textView.text = dataList.toString()
                         dataadapter = DataAdapter(this@MainActivity2, dataList)
                         recyclerView.adapter = dataadapter
                         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity2)
@@ -61,6 +57,13 @@ class MainActivity2 : ComponentActivity() {
                 return true
             }
         })
+        homeButton()
     }
-
+    private fun homeButton(){
+        val homeSp = findViewById<ImageView>(R.id.HOME)
+        homeSp.setOnClickListener(){
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }
