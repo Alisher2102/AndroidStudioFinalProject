@@ -40,8 +40,12 @@ class MainActivity : ComponentActivity() {
                         response: Response<MusicData?>
                     ) {
                         val dataList = response.body()?.data!!
+
                         //                val textView = findViewById<TextView>(R.id.textView)
                         //                textView.text = dataList.toString()
+
+            //                val textView = findViewById<TextView>(R.id.textView)
+            //                textView.text = dataList.toString()
                         adapter = DataAdapter(this@MainActivity, dataList)
                         recyclerView.adapter = adapter
                         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
