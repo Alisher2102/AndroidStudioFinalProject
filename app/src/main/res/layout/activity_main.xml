@@ -11,13 +11,8 @@
 
     <SearchView
         android:id="@+id/sv"
-<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="50dp"
-=======
-        android:layout_width="374dp"
-        android:layout_height="40dp"
->>>>>>> 368ebb9ebc3a474e8d4a9cfa169e1fb4442b801e
         android:background="#FFFFFF"
         android:queryHint="Type the name of music"
         app:layout_constraintEnd_toEndOf="parent"
