@@ -11,14 +11,13 @@ import com.example.finalproject.model.Track
 
 class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
-    private var currentPlayingPosition: Int? = null
-    val playingTrack = context.intent.getIntExtra("playingTrack",-1)
+    var currentPlayingPosition = context.intent.getIntExtra("playingTrack",-1)
+    var searchPage = context.intent.getIntExtra("search_page",0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.each_item, parent,false)
         return DataAdapter.ViewHolder(itemView)
     }
-
 
 
     override fun getItemCount(): Int {
@@ -30,9 +29,6 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
         holder.title.text = current.title
         holder.artist.text = current.artist
         holder.image.setImageResource(current.imageId)
-
-        if(currentPlayingPosition != playingTrack && playingTrack != -1)
-            currentPlayingPosition = playingTrack
         holder.musiccard.setOnClickListener {
             handleMusicClick(position)
         }
@@ -43,9 +39,7 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
             intent.putExtra("audio_path", current.audio)
             intent.putExtra("is_playing", globalMediaPlayer.isPlaying)
             intent.putExtra("current_position", globalMediaPlayer.currentPosition)
-            if (playingTrack != -1)
-                intent.putExtra("playing_track", playingTrack)
-            else intent.putExtra("playing_track", currentPlayingPosition)
+            intent.putExtra("playing_track", currentPlayingPosition)
             context.startActivity(intent)
             true
         }
@@ -53,8 +47,10 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
     }
 
     private fun handleMusicClick(position: Int) {
-//        if(currentPlayingPosition != playingTrack && playingTrack != -1)
-//            currentPlayingPosition = playingTrack
+        if (searchPage==1) {
+            globalMediaPlayer.stop()
+            globalMediaPlayer.reset()
+        }
         if (position == currentPlayingPosition) {
             if (globalMediaPlayer.isPlaying) {
                 globalMediaPlayer.pause()
@@ -62,7 +58,7 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
                 globalMediaPlayer.start()
             }
         } else {
-            if (currentPlayingPosition != null) {
+            if (currentPlayingPosition != -1) {
                 globalMediaPlayer.stop()
                 globalMediaPlayer.reset()
             }
