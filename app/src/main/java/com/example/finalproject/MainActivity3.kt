@@ -10,21 +10,11 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.MainActivity.Companion.globalMediaPlayer
 import com.example.finalproject.data.MyPlaylistDataProvider
 import com.example.finalproject.model.MusicPlayerVIewModel
 import com.example.finalproject.model.Track
-import com.example.finalproject.ui.theme.FinalProjectTheme
 
 class MainActivity3 : ComponentActivity() {
     var musicId: Int = -1
@@ -61,6 +51,8 @@ class MainActivity3 : ComponentActivity() {
         musicImage.setImageResource(selectedTrack.imageId)
         trackName.text = selectedTrack.title
         artist.text = selectedTrack.artist
+        nextMusic()
+        previousMusic()
     }
     fun goBack(view: View){
         val intent = Intent(this, MainActivity::class.java)
@@ -69,7 +61,6 @@ class MainActivity3 : ComponentActivity() {
     }
 
     fun play(view: View){
-        startSeekBar()
         if (musicId != playingTrack) {
             if (playingTrack != -1) {
                 globalMediaPlayer.stop()
@@ -92,6 +83,7 @@ class MainActivity3 : ComponentActivity() {
                 playBtn.setImageResource(R.drawable.pause)
             }
         }
+        startSeekBar()
     }
     fun startSeekBar(){
         seekbar.max = globalMediaPlayer.duration
@@ -118,5 +110,80 @@ class MainActivity3 : ComponentActivity() {
             }
         }
         handler.postDelayed(updateSeekBar, 0)
+    }
+    private fun nextMusic(){
+        val homeSp = findViewById<ImageView>(R.id.next)
+        homeSp.setOnClickListener(){
+            if(musicId<MyPlaylistDataProvider.getTracksData().size - 1){
+
+                musicId++
+                selectedTrack = tracksList.find { it.id == musicId }!!
+                musicImage.setImageResource(selectedTrack.imageId)
+                trackName.text = selectedTrack.title
+                artist.text = selectedTrack.artist
+                MainActivity.globalMediaPlayer.stop()
+                MainActivity.globalMediaPlayer.reset()
+                MainActivity.globalMediaPlayer.setDataSource(
+                    this,
+                    Uri.parse("android.resource://${this.packageName}/${selectedTrack?.audio}")
+                )
+                MainActivity.globalMediaPlayer.prepare()
+                MainActivity.globalMediaPlayer.start()
+            }
+            else{
+                musicId = 0
+                selectedTrack = tracksList.find { it.id == musicId }!!
+                musicImage.setImageResource(selectedTrack.imageId)
+                trackName.text = selectedTrack.title
+                artist.text = selectedTrack.artist
+                MainActivity.globalMediaPlayer.stop()
+                MainActivity.globalMediaPlayer.reset()
+                MainActivity.globalMediaPlayer.setDataSource(
+                    this,
+                    Uri.parse("android.resource://${this.packageName}/${selectedTrack?.audio}")
+                )
+                MainActivity.globalMediaPlayer.prepare()
+                MainActivity.globalMediaPlayer.start()
+
+            }
+        }
+    }
+    private fun previousMusic(){
+        val homeSp = findViewById<ImageView>(R.id.prev)
+        homeSp.setOnClickListener(){
+            if(musicId>0){
+                musicId--
+
+                selectedTrack = tracksList.find { it.id == musicId }!!
+                musicImage.setImageResource(selectedTrack.imageId)
+                trackName.text = selectedTrack.title
+                artist.text = selectedTrack.artist
+                MainActivity.globalMediaPlayer.stop()
+                MainActivity.globalMediaPlayer.reset()
+                MainActivity.globalMediaPlayer.setDataSource(
+                    this,
+                    Uri.parse("android.resource://${this.packageName}/${selectedTrack?.audio}")
+                )
+                MainActivity.globalMediaPlayer.prepare()
+                MainActivity.globalMediaPlayer.start()
+
+            }
+            else{
+                musicId = MyPlaylistDataProvider.getTracksData().size - 1
+
+                selectedTrack = tracksList.find { it.id == musicId }!!
+                musicImage.setImageResource(selectedTrack.imageId)
+                trackName.text = selectedTrack.title
+                artist.text = selectedTrack.artist
+                MainActivity.globalMediaPlayer.stop()
+                MainActivity.globalMediaPlayer.reset()
+                MainActivity.globalMediaPlayer.setDataSource(
+                    this,
+                    Uri.parse("android.resource://${this.packageName}/${selectedTrack?.audio}")
+                )
+                MainActivity.globalMediaPlayer.prepare()
+                MainActivity.globalMediaPlayer.start()
+            }
+        }
     }
 }
