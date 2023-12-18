@@ -69,7 +69,6 @@ class MainActivity3 : ComponentActivity() {
     }
 
     fun play(view: View){
-        startSeekBar()
         if (musicId != playingTrack) {
             if (playingTrack != -1) {
                 globalMediaPlayer.stop()
@@ -92,6 +91,7 @@ class MainActivity3 : ComponentActivity() {
                 playBtn.setImageResource(R.drawable.pause)
             }
         }
+        startSeekBar()
     }
     fun startSeekBar(){
         seekbar.max = globalMediaPlayer.duration
