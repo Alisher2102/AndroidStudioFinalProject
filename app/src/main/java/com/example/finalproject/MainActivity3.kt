@@ -113,7 +113,7 @@ class MainActivity3 : ComponentActivity() {
     }
     private fun nextMusic(){
         val homeSp = findViewById<ImageView>(R.id.next)
-        homeSp.setOnClickListener(){
+        homeSp.setOnClickListener{
             if(musicId<MyPlaylistDataProvider.getTracksData().size - 1){
 
                 musicId++
@@ -121,6 +121,8 @@ class MainActivity3 : ComponentActivity() {
                 musicImage.setImageResource(selectedTrack.imageId)
                 trackName.text = selectedTrack.title
                 artist.text = selectedTrack.artist
+
+                playingTrack = musicId
                 MainActivity.globalMediaPlayer.stop()
                 MainActivity.globalMediaPlayer.reset()
                 MainActivity.globalMediaPlayer.setDataSource(
