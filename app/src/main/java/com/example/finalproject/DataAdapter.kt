@@ -1,6 +1,7 @@
 package com.example.finalproject
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,11 +48,17 @@ class DataAdapter(val context: Activity, val dataList: List<Data>):
         holder.artist.text = current.artist.name
         Picasso.get().load(current.album.cover).into(holder.image)
         holder.musiccard.setOnClickListener {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("search_page", 1)
+            context.startActivity(intent)
             handleMusicClick(position)
         }
     }
 
     private fun handleMusicClick(position: Int) {
+        globalMediaPlayer.stop()
+        globalMediaPlayer.reset()
+
         if (position == currentPlayingPosition) {
             if (globalMediaPlayer.isPlaying) {
                 globalMediaPlayer.pause()
