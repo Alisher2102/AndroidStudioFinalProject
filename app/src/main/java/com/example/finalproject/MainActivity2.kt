@@ -63,6 +63,7 @@ class MainActivity2 : ComponentActivity() {
         val homeSp = findViewById<ImageView>(R.id.HOME)
         homeSp.setOnClickListener(){
             val intent = Intent(this,MainActivity::class.java)
+
             startActivity(intent)
         }
     }

@@ -36,7 +36,6 @@ class MyPlaylistAdapter(val context: Activity, val dataList: List<Track>):
         holder.musiccard.setOnLongClickListener {
             val intent = Intent(context, MainActivity3::class.java)
             intent.putExtra("music_id", current.id)
-            intent.putExtra("audio_path", current.audio)
             intent.putExtra("is_playing", globalMediaPlayer.isPlaying)
             intent.putExtra("current_position", globalMediaPlayer.currentPosition)
             intent.putExtra("playing_track", currentPlayingPosition)

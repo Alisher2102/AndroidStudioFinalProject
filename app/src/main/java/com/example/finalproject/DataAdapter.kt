@@ -12,7 +12,9 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalproject.MainActivity.Companion.globalMediaPlayer
 import com.example.finalproject.model.Data
+import com.example.finalproject.model.MusicData
 import com.squareup.picasso.Picasso
+import retrofit2.Callback
 
 class DataAdapter(val context: Activity, val dataList: List<Data>):
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
